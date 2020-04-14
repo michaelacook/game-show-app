@@ -8,7 +8,20 @@
     {
        this.missed = 0;
        this.phrases = phrases;
+       this.phrasesCopy = [...this.phrases];
        this.activePhrase = null;
+       this.overlay = document.getElementById('overlay');
+       this.spaces = document
+        .getElementById('phrase')
+        .querySelector('ul')
+        .children;
+       this.keys = document
+        .getElementById('qwerty')
+        .getElementsByTagName('button');
+       this.lives = document
+        .getElementById('scoreboard')
+        .querySelector('ol')
+        .children;
     }
 
 
@@ -17,46 +30,40 @@
        const phrase = this.getRandomPhrase();
        phrase.addPhraseToDisplay();
        this.activePhrase = phrase;
-       document
-          .getElementById('overlay')
-          .style
-          .display = 'none';
+       this.overlay.style.display = 'none';
     }
 
 
     resetGame()
     {
        this.missed = 0;
-       const spaces = document
-           .getElementById('phrase')
-           .querySelector('ul')
-           .innerHTML = "";
-       const keys = document
-           .getElementById('qwerty')
-           .getElementsByTagName('button');
-       for (let i = 0; i < keys.length; i++) {
-           if (keys[i].classList.contains('wrong')) {
-               keys[i].classList.remove('wrong');
-           } else if (keys[i].classList.contains('chosen')) {
-               keys[i].classList.remove('chosen');
+       document
+         .getElementById('phrase')
+         .querySelector('ul')
+         .innerHTML = "";
+       for (let i = 0; i < this.keys.length; i++) {
+           if (this.keys[i].classList.contains('wrong')) {
+               this.keys[i].classList.remove('wrong');
+           } else if (this.keys[i].classList.contains('chosen')) {
+               this.keys[i].classList.remove('chosen');
            }
-           keys[i].removeAttribute('disabled');
+           this.keys[i].removeAttribute('disabled');
        }
-       const lifes = document
-           .getElementById('scoreboard')
-           .querySelector('ol')
-           .children;
-       for (let i = 0; i < lifes.length; i++) {
-           lifes[i]
-               .firstElementChild
-               .setAttribute('src', 'images/liveHeart.png');
+       for (let i = 0; i < this.lives.length; i++) {
+           this.lives[i]
+             .firstElementChild
+             .setAttribute('src', 'images/liveHeart.png');
        }
     }
 
 
     getRandomPhrase()
     {
-       return this.phrases[Math.floor(Math.random() * this.phrases.length)];
+        if (this.phrasesCopy.length === 0) {
+            this.phrasesCopy = [...this.phrases];
+        }
+        const index = Math.floor(Math.random() * this.phrasesCopy.length);
+        return this.phrasesCopy.splice(index, 1)[0];
     }
 
 
@@ -77,24 +84,17 @@
     removeLife()
     {
        this.missed++;
-       const lifes = document 
-           .getElementById('scoreboard')
-           .querySelector('ol')
-           .children;
-       lifes[this.missed - 1]
-           .firstElementChild
-           .setAttribute('src', 'images/lostHeart.png');
+       this.lives[this.missed - 1]
+         .firstElementChild
+         .setAttribute('src', 'images/lostHeart.png');
     }
 
 
     checkForWin()
     {
-        const spaces = document
-            .getElementById('phrase')
-            .querySelector('ul')
-            .children;
-        for (let i = 0; i < spaces.length; i++) {
-            if (spaces[i].classList.contains('hide')) {
+        
+        for (let i = 0; i < this.spaces.length; i++) {
+            if (this.spaces[i].classList.contains('hide')) {
                 return false;
             }
         }
@@ -105,22 +105,16 @@
     gameOver()
     {
         if (this.missed === 5) {
-            document
-                .getElementById('overlay')
-                .style
-                .display = 'flex';
+            this.overlay.style.display = 'flex';
             document 
-                .getElementById('game-over-message')
-                .textContent = "Game Over. Try again!";
+             .getElementById('game-over-message')
+             .textContent = "Game Over. Try again!";
             this.resetGame();
         } else if (this.checkForWin()) {
-            document
-                .getElementById('overlay')
-                .style
-                .display = 'flex';
+            this.overlay.style.display = 'flex';
             document 
-                .getElementById('game-over-message')
-                .textContent = "You Win!";
+             .getElementById('game-over-message')
+             .textContent = "You Win!";
             this.resetGame();
         }
     }
