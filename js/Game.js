@@ -66,12 +66,11 @@
         if (this.activePhrase.checkLetter(letter.textContent)) {
             letter.classList.add('chosen');
             this.activePhrase.showMatchedLetter(letter.textContent);
-            this.checkForWin();
         } else {
             letter.classList.add('wrong');
             this.removeLife();
-            this.gameOver();
         }
+        this.gameOver();
      }
 
 
@@ -88,33 +87,23 @@
      }
 
 
-     checkForWin()
-     {
-        let win = true;
+    checkForWin()
+    {
         const spaces = document
             .getElementById('phrase')
             .querySelector('ul')
             .children;
         for (let i = 0; i < spaces.length; i++) {
             if (spaces[i].classList.contains('hide')) {
-                win = false
+                return false;
             }
         }
-        if (win) {
-            document
-                .getElementById('overlay')
-                .style
-                .display = 'flex';
-            document 
-                .getElementById('game-over-message')
-                .textContent = "You Win!";
-            this.resetGame();
-        }
-     }
+        return true;
+    }
 
 
-     gameOver()
-     {
+    gameOver()
+    {
         if (this.missed === 5) {
             document
                 .getElementById('overlay')
@@ -124,6 +113,15 @@
                 .getElementById('game-over-message')
                 .textContent = "Game Over. Try again!";
             this.resetGame();
+        } else if (this.checkForWin()) {
+            document
+                .getElementById('overlay')
+                .style
+                .display = 'flex';
+            document 
+                .getElementById('game-over-message')
+                .textContent = "You Win!";
+            this.resetGame();
         }
-     }
- }
+    }
+}

@@ -5,11 +5,13 @@
 const phrases = [
     new Phrase("Live and let live"),
     new Phrase("Coding is life"),
-    new Phrase("Workers of the world unite"),
+    new Phrase("No pain no gain"),
+    new Phrase("actions speak louder than words"),
+    new Phrase("Curiosity killed the cat")
 ];
 
-const startBtn = document.getElementById('btn__reset');
 const game = new Game(phrases);
+const startBtn = document.getElementById('btn__reset');
 
 startBtn.addEventListener('click', e => {
     game.startGame();

@@ -41,7 +41,7 @@
 
      showMatchedLetter(letter)
      {
-         const spaces = document
+        const spaces = document
             .getElementById('phrase')
             .querySelector('ul')
             .children;
@@ -51,5 +51,5 @@
                 spaces[i].classList.add('show');
             }
         }
-     }
+    }
  }
