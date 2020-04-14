@@ -22,3 +22,12 @@ document.getElementById('qwerty').addEventListener('click', e => {
         game.handleInteraction(e.target);
     }
 });
+
+
+// listen for keydown event, get the letter button corresponding to the key pressed, pass it to handleInteraction
+document.addEventListener('keydown', e => {
+    const keys = document.querySelectorAll('.key');
+    const letter = Array.from(keys)
+        .find(el => el.textContent === String.fromCharCode(e.keyCode).toLowerCase());
+    game.handleInteraction(letter);
+});
