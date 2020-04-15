@@ -42,9 +42,9 @@
      showMatchedLetter(letter)
      {
         const spaces = document
-            .getElementById('phrase')
-            .querySelector('ul')
-            .children;
+         .getElementById('phrase')
+         .querySelector('ul')
+         .children;
         for (let i = 0; i < this.phrase.length; i++) {
             if (spaces[i].textContent === letter) {
                 spaces[i].classList.remove('hide');

@@ -2,6 +2,10 @@
  * Project 4 - OOP Game App
  * Game.js */
 
+/*
+https://www.samanthaming.com/tidbits/35-es6-way-to-clone-an-array/ 
+*/
+
  class Game 
  {
     constructor(phrases)
