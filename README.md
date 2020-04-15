@@ -8,8 +8,10 @@ Full Stack JavaScript project 4. A phrase-guessing gameshow browser app.
 
 ## Alterations
 The following changes to the original styles have been made: 
-* transition transforms on hover added to start and letter buttons
+* Letter spaces cannot be highlighted by the user, preventing the user from viewing the hidden phrase
+* Transition transforms on hover added to start and letter buttons
+* Start button given a box-shadow
 * Overlay background colour changed
-* space and key button background colours changed
-* body height altered to prevent scrollbar
+* Space and key button background colours changed
+* Body height altered to prevent scrollbar
 * Life hearts colour changed
