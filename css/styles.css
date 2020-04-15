@@ -28,6 +28,7 @@ body {
   flex-direction: column;
   display: flex;
   height: 100vh;
+  max-height: 900px;
 }
 
 li, ol, ul {
