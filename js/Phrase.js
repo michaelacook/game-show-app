@@ -17,6 +17,7 @@ class Phrase
 
     /**
      * Generate and append the spaces representing the phrase
+     * The noSelect class applies a css rule that prevents the phrase text from being highlighted and viewed when it is hidden
      */
     addPhraseToDisplay()
     {
@@ -31,6 +32,7 @@ class Phrase
             } else {
                 space.classList.add('hide');
                 space.classList.add('letter');
+                space.classList.add('noSelect');
                 space.textContent = this.phrase[i];
             }
             phraseArea.appendChild(space);
