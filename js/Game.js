@@ -2,12 +2,19 @@
  * Project 4 - OOP Game App
  * Game.js */
 
-/*
-https://www.samanthaming.com/tidbits/35-es6-way-to-clone-an-array/ 
-*/
+
 
  class Game 
  {
+
+    /**
+     * Set game variables
+     * phrasesCopy is used for preventing the same random phrase from being selected twice consecutively
+     * spaces property represents all the letter spaces
+     * keys property represents all onscreen letter key buttons
+     * lives property represents all life hearts
+     * @param {Array} phrases - array of Phrase objects 
+     */
     constructor(phrases)
     {
        this.missed = 0;
@@ -29,6 +36,13 @@ https://www.samanthaming.com/tidbits/35-es6-way-to-clone-an-array/
     }
 
 
+    /**
+     * Get a random phrase, add it to the display
+     * Set the activePhrase property to the selected phrase
+     * Calls addPhraseToDisplay method on the Phrase object
+     * Remove the overlay
+     * Calls getRandomPhrase
+     */
     startGame()
     {
        const phrase = this.getRandomPhrase();
@@ -38,6 +52,13 @@ https://www.samanthaming.com/tidbits/35-es6-way-to-clone-an-array/
     }
 
 
+    /**
+     * Reset the game
+     * Set missed to 0
+     * Set all onscreen keyboard keys back to default
+     * Set all lives images back to default
+     * Remove all spaces
+     */
     resetGame()
     {
        this.missed = 0;
@@ -61,6 +82,11 @@ https://www.samanthaming.com/tidbits/35-es6-way-to-clone-an-array/
     }
 
 
+    /**
+     * Get and remove a random phrase from the phrasesCopy array
+     * When phrasesCopy array is empty, reset it to contain all the phrases in the phrases array
+     * This prevents the game from randomly selecting the same phrase twice consecutively on multiple sessions
+     */
     getRandomPhrase()
     {
         if (this.phrasesCopy.length === 0) {
@@ -71,6 +97,15 @@ https://www.samanthaming.com/tidbits/35-es6-way-to-clone-an-array/
     }
 
 
+    /**
+     * Handles user interaction with the game 
+     * Accepts the element for the letter clicked by the user and checks if its a match 
+     * Disables the letter button and sets the appropriate class on the button 
+     * If a match, changes the class of all spaces containing the letter to show
+     * If a win, end the game and display a win message, if lost, end game and show game over message
+     * Calls: showMatchedLetter, checkLetter on the Phrase object, removeLife, gameOver 
+     * @param {HTML element} letter - letter button 
+     */
     handleInteraction(letter)
     {
        letter.setAttribute('disabled', "");
@@ -85,6 +120,10 @@ https://www.samanthaming.com/tidbits/35-es6-way-to-clone-an-array/
     }
 
 
+    /**
+     * Increment the missed property
+     * Change the next life heart image to the lostHeart image
+     */
     removeLife()
     {
        this.missed++;
@@ -94,9 +133,13 @@ https://www.samanthaming.com/tidbits/35-es6-way-to-clone-an-array/
     }
 
 
+    /**
+     * Check if any letter spaces contain the hide class
+     * If not, return true. If any space contains the hide class, return false
+     * Called in gameOver
+     */
     checkForWin()
     {
-        
         for (let i = 0; i < this.spaces.length; i++) {
             if (this.spaces[i].classList.contains('hide')) {
                 return false;
@@ -106,6 +149,11 @@ https://www.samanthaming.com/tidbits/35-es6-way-to-clone-an-array/
     }
 
 
+    /**
+     * End the game and reset 
+     * If five misses, end the game with a loss, if all letter spaces showing, end game with a win
+     * Calls checkForWin and resetGame
+     */
     gameOver()
     {
         if (this.missed === 5) {
