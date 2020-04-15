@@ -10,13 +10,22 @@ const phrases = [
     new Phrase("Curiosity killed the cat")
 ];
 
-const game = new Game(phrases);
-const startBtn = document.getElementById('btn__reset');
+let game;
+
+/* validLetters and validLettersCopy are for validating keyboard input
+and prevent more than one use of a key */
+const validLetters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 
+                          'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 
+                          'u', 'v', 'w', 'x', 'y', 'z'];
+let validLettersCopy = [...validLetters];
 
 
 // start the game when start button clicked
-startBtn.addEventListener('click', e => {
+document.getElementById('btn__reset').addEventListener('click', e => {
+    game = new Game(phrases);
     game.startGame();
+    // reset validLettersCopy each time game is started
+    validLettersCopy = [...validLetters];
 });
 
 
@@ -30,14 +39,13 @@ document.getElementById('qwerty').addEventListener('click', e => {
 
 // listen for keydown event, get the letter button corresponding to the key pressed, pass it to handleInteraction
 document.addEventListener('keydown', e => {
-    const validLetters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 
-                          'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 
-                          'u', 'v', 'w', 'x', 'y', 'z'];
     const key = String.fromCharCode(e.keyCode).toLowerCase();
-    if (validLetters.includes(key)) {
+    if (validLettersCopy.includes(key)) {
         const keys = document.querySelectorAll('.key');
         const letter = Array.from(keys)
             .find(el => el.textContent === key);
+        // remove the letter from validLetterCopy array to prevent multiple uses of the letter
+        validLettersCopy.splice(validLettersCopy.indexOf(key), 1);
         game.handleInteraction(letter);
     }
 });
