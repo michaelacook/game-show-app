@@ -143,6 +143,20 @@ button {
   transform: scale(1.1);
 }
 
+/* The properties for this rule 
+come from this stackoverflow post: 
+<https://stackoverflow.com/questions/826782/how-to-disable-text-selection-highlighting>
+This class is applied to letter spaces to prevent the user from being able to highlight and see the hidden phrase
+ */
+.noSelect {
+  -webkit-touch-callout: none; 
+  -webkit-user-select: none; 
+  -khtml-user-select: none; 
+  -moz-user-select: none; 
+  -ms-user-select: none; 
+  user-select: none; 
+}
+
 .chosen {
   /* background: #3a3f58; */
   background: #3CB371;
