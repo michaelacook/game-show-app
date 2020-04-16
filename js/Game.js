@@ -103,7 +103,7 @@
      * Disables the letter button and sets the appropriate class on the button 
      * If a match, changes the class of all spaces containing the letter to show
      * If a win, end the game and display a win message, if lost, end game and show game over message
-     * Calls: showMatchedLetter, checkLetter on the Phrase object, removeLife, gameOver 
+     * Calls: showMatchedLetter, checkLetter on the Phrase object, removeLife
      * @param {HTML element} letter - letter button 
      */
     handleInteraction(letter)
@@ -112,17 +112,18 @@
        if (this.activePhrase.checkLetter(letter.textContent)) {
            letter.classList.add('chosen');
            this.activePhrase.showMatchedLetter(letter.textContent);
+           this.checkForWin();
        } else {
            letter.classList.add('wrong');
            this.removeLife();
        }
-       this.gameOver();
     }
 
 
     /**
      * Increment the missed property
      * Change the next life heart image to the lostHeart image
+     * If five misses, call gameOver and pass false
      */
     removeLife()
     {
@@ -130,44 +131,47 @@
        this.lives[this.missed - 1]
          .firstElementChild
          .setAttribute('src', 'images/lostHeart.png');
+       if (this.missed === 5) {
+           this.gameOver(false);
+       }
     }
 
 
     /**
      * Check if any letter spaces contain the hide class
-     * If not, return true. If any space contains the hide class, return false
-     * Called in gameOver
+     * If so, do an early return
+     * If not, call the gameOver method and pass true
      */
     checkForWin()
     {
         for (let i = 0; i < this.spaces.length; i++) {
             if (this.spaces[i].classList.contains('hide')) {
-                return false;
+                return;
             }
         }
-        return true;
+        this.gameOver(true);
     }
 
 
     /**
      * End the game and reset 
-     * If five misses, end the game with a loss, if all letter spaces showing, end game with a win
-     * Calls checkForWin and resetGame
+     * Displays the overlay and adds the corresponding classes depending on a win or loss
+     * Calls resetGame
+     * @param {Bool} winOrLose - boolean value. True for win, false for lose
      */
-    gameOver()
+    gameOver(winOrLose)
     {
-        if (this.missed === 5) {
-            this.overlay.style.display = 'flex';
+        if (!winOrLose) {
             document 
              .getElementById('game-over-message')
              .textContent = "Game Over. Try again!";
-            this.resetGame();
-        } else if (this.checkForWin()) {
-            this.overlay.style.display = 'flex';
+        } else {
             document 
              .getElementById('game-over-message')
              .textContent = "You Win!";
-            this.resetGame();
         }
+        this.overlay.className = `${winOrLose ? "win" : "lose"}`;
+        this.overlay.style.display = 'flex';
+        this.resetGame();
     }
 }
