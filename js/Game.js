@@ -114,10 +114,15 @@
          if (this.activePhrase.checkLetter(letter.textContent)) {
              letter.classList.add('chosen');
              this.activePhrase.showMatchedLetter(letter.textContent);
-             this.checkForWin();
+             if (this.checkForWin()) {
+                this.gameOver(true);
+             }
           } else {
              letter.classList.add('wrong');
              this.removeLife();
+             if (this.missed === 5) {
+                this.gameOver(false);
+            }
           }
        }
     }
@@ -134,9 +139,6 @@
        this.lives[this.missed - 1]
          .firstElementChild
          .setAttribute('src', 'images/lostHeart.png');
-       if (this.missed === 5) {
-           this.gameOver(false);
-       }
     }
 
 
@@ -149,10 +151,10 @@
     {
         for (let i = 0; i < this.spaces.length; i++) {
             if (this.spaces[i].classList.contains('hide')) {
-                return;
+                return false;
             }
         }
-        this.gameOver(true);
+        return true;
     }
 
 
