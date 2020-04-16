@@ -102,8 +102,8 @@
      * Accepts the element for the letter clicked by the user and checks if its a match 
      * Executes logic only if argument passed is not already disabled
      * Disables the letter button and sets the appropriate class on the button 
-     * If a match, call checkForWin
-     * It not a match, call removeLife
+     * If a match, call checkForWin, if win call gameOver and pass true
+     * It not a match, call removeLife. If missed === 5 call gameOver and pass false
      * Calls: showMatchedLetter, checkLetter on the Phrase object, removeLife
      * @param {HTML element} letter - letter button 
      */
@@ -131,7 +131,6 @@
     /**
      * Increment the missed property
      * Change the next life heart image to the lostHeart image
-     * If five misses, call gameOver and pass false
      */
     removeLife()
     {
@@ -145,7 +144,6 @@
     /**
      * Check if any letter spaces contain the hide class
      * If so, do an early return
-     * If not, call the gameOver method and pass true for a win
      */
     checkForWin()
     {
