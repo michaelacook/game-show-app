@@ -208,8 +208,7 @@ This class is applied to letter spaces to prevent the user from being able to hi
 }
 
 .start {
-  /* background-color: #3a3f58; */
-  background-color: #3CB371;
+  background-color: #00BFFF	;
 }
 
 .start a {
