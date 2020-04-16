@@ -15,8 +15,8 @@ let game;
 /* validLetters and validLettersCopy are for validating keyboard input
 and prevent more than one use of a key */
 const validLetters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 
-                          'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 
-                          'u', 'v', 'w', 'x', 'y', 'z'];
+                      'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 
+                      'u', 'v', 'w', 'x', 'y', 'z'];
 let validLettersCopy = [...validLetters];
 
 
@@ -40,7 +40,7 @@ document.getElementById('qwerty').addEventListener('click', e => {
 // listen for keydown event, get the letter button corresponding to the key pressed, pass it to handleInteraction
 document.addEventListener('keydown', e => {
     const key = String.fromCharCode(e.keyCode).toLowerCase();
-    if (validLettersCopy.includes(key)) {
+    if (validLettersCopy.includes(key) && game) {
         const keys = document.querySelectorAll('.key');
         const letter = Array.from(keys)
             .find(el => el.textContent === key);
