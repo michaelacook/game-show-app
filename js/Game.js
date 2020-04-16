@@ -101,8 +101,8 @@
      * Handles user interaction with the game 
      * Accepts the element for the letter clicked by the user and checks if its a match 
      * Disables the letter button and sets the appropriate class on the button 
-     * If a match, changes the class of all spaces containing the letter to show
-     * If a win, end the game and display a win message, if lost, end game and show game over message
+     * If a match, call checkForWin
+     * It not a match, call removeLife
      * Calls: showMatchedLetter, checkLetter on the Phrase object, removeLife
      * @param {HTML element} letter - letter button 
      */
@@ -140,7 +140,7 @@
     /**
      * Check if any letter spaces contain the hide class
      * If so, do an early return
-     * If not, call the gameOver method and pass true
+     * If not, call the gameOver method and pass true for a win
      */
     checkForWin()
     {
