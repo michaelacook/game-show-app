@@ -100,6 +100,7 @@
     /**
      * Handles user interaction with the game 
      * Accepts the element for the letter clicked by the user and checks if its a match 
+     * Executes logic only if argument passed is not already disabled
      * Disables the letter button and sets the appropriate class on the button 
      * If a match, call checkForWin
      * It not a match, call removeLife
@@ -108,14 +109,16 @@
      */
     handleInteraction(letter)
     {
-       letter.setAttribute('disabled', "");
-       if (this.activePhrase.checkLetter(letter.textContent)) {
-           letter.classList.add('chosen');
-           this.activePhrase.showMatchedLetter(letter.textContent);
-           this.checkForWin();
-       } else {
-           letter.classList.add('wrong');
-           this.removeLife();
+       if (!letter.hasAttribute('disabled')) {
+            letter.setAttribute('disabled', "");
+         if (this.activePhrase.checkLetter(letter.textContent)) {
+             letter.classList.add('chosen');
+             this.activePhrase.showMatchedLetter(letter.textContent);
+             this.checkForWin();
+          } else {
+             letter.classList.add('wrong');
+             this.removeLife();
+          }
        }
     }
 
