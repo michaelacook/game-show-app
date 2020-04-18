@@ -40,7 +40,10 @@ document.getElementById('qwerty').addEventListener('click', e => {
 // listen for keydown event, get the letter button corresponding to the key pressed, pass it to handleInteraction
 document.addEventListener('keydown', e => {
     const key = String.fromCharCode(e.keyCode).toLowerCase();
-    if (validLettersCopy.includes(key) && game) {
+    const overlay = document.getElementById('overlay');
+    // prevent the app from accepting keyboard input when the overlay is visible
+    const overlayIsDisplayed = window.getComputedStyle(overlay).display === "flex";
+    if (!overlayIsDisplayed && validLettersCopy.includes(key)) {
         const keys = document.querySelectorAll('.key');
         const letter = Array.from(keys)
             .find(el => el.textContent === key);
